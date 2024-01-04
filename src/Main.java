@@ -32,12 +32,12 @@ public class Main {
                     break;
                 case 2:
                     // Display all statistics
-                    Map<String, Integer> statistics = analyzer.calculateStatistics();
+                    Map<String, String> statistics = analyzer.calculateStatistics();
                     System.out.println("\n"+formatColumn("Statistic", 40) + formatColumn("Value", 10));
                     System.out.println("------------------------------------------------------");
-                    for (Map.Entry<String, Integer> entry : statistics.entrySet()) {
+                    for (Map.Entry<String, String> entry : statistics.entrySet()) {
                         String statName = formatColumn(entry.getKey(), 40); // Statistic name column
-                        String statValue = formatColumn(entry.getValue().toString(), 10); // Value column
+                        String statValue = formatColumn(entry.getValue(), 10); // Value column
                         System.out.println(statName + statValue);
                     }
                     break;

@@ -44,15 +44,16 @@ public class DataAnalyzer {
      *
      * @return Map of statistic names to their values.
      */
-    public Map<String, Integer> calculateStatistics() {
-        Map<String, Integer> statistics = new HashMap<>();
-        statistics.put("Total Connections", calculateTotalConnections());
-        statistics.put("Unique Local IPs", calculateUniqueLocalIPs());
-        statistics.put("Unique Remote ASNs", calculateUniqueRemoteASNs());
-        statistics.put("Average Connections per IP", calculateAverageConnectionsPerIP());
-        statistics.put("Maximum Number of Connections", calculateMaxConnections());
-        statistics.put("Minimum Number of Connections", calculateMinConnections());
-        statistics.put("Average Number of Connections", calculateAverageConnections());
+    public Map<String, String> calculateStatistics() {
+        Map<String, String> statistics = new HashMap<>();
+        statistics.put("Total Connections", String.valueOf(calculateTotalConnections()));
+        statistics.put("Unique Local IPs", String.valueOf(calculateUniqueLocalIPs()));
+        statistics.put("Unique Remote ASNs", String.valueOf(calculateUniqueRemoteASNs()));
+        statistics.put("Average Connections per IP", String.valueOf(calculateAverageConnectionsPerIP()));
+        statistics.put("Maximum Number of Connections", String.valueOf(calculateMaxConnections()));
+        statistics.put("Minimum Number of Connections", String.valueOf(calculateMinConnections()));
+        statistics.put("Average Number of Connections", String.valueOf(calculateAverageConnections()));
+        statistics.put("Peak Connection Date", calculatePeakConnectionDate());
 
         return statistics;
     }
@@ -87,6 +88,21 @@ public class DataAnalyzer {
         return (int) dataList.stream().mapToInt(NetworkData::getNumberOfConnections).average().orElse(0);
     }
 
+    private String calculatePeakConnectionDate() {
+        Map<String, Integer> dateConnectionsMap = new HashMap<>();
+
+        for (NetworkData data : dataList) {
+            int currentCount = dateConnectionsMap.getOrDefault(data.getDate(), 0);
+            dateConnectionsMap.put(data.getDate(), currentCount + data.getNumberOfConnections());
+        }
+
+        return dateConnectionsMap.entrySet()
+                .stream()
+                .max(Comparator.comparingInt(Map.Entry::getValue))
+                .map(Map.Entry::getKey)
+                .orElse("No Data"); // Return "No Data" if the list is empty or no max found
+    }
+
     /**
      * Displays sections of traffic for a given user (local IP).
      *
@@ -106,9 +122,9 @@ public class DataAnalyzer {
      * @return boolean indicating success or failure of the operation.
      */
     public boolean saveStatisticsToFile(String filePath) {
-        Map<String, Integer> statistics = calculateStatistics();
+        Map<String, String> statistics = calculateStatistics();
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            for (Map.Entry<String, Integer> entry : statistics.entrySet()) {
+            for (Map.Entry<String, String> entry : statistics.entrySet()) {
                 writer.write(entry.getKey() + ": " + entry.getValue());
                 writer.newLine();
             }
