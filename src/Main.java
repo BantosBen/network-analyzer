@@ -83,7 +83,7 @@ public class Main {
      * @param length the desired fixed length of the column
      * @return a string formatted to the desired length
      */
-    public static String formatColumn(String input, int length) {
+    private static String formatColumn(String input, int length) {
         // If the input string is shorter than the length, pad it with spaces
         if (input.length() < length) {
             return String.format("%1$-" + length + "s", input);
