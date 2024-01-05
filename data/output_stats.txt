@@ -1,7 +1,8 @@
-Average Number of Connections: 513
-Maximum Number of Connections: 1000
-Unique Local IPs: 21
-Total Connections: 1026246
-Average Connections per IP: 48868
-Unique Remote ASNs: 991
-Minimum Number of Connections: 0
+Average Number of Connections: 93
+Maximum Number of Connections: 784234
+Unique Local IPs: 10
+Total Connections: 1953698
+Average Connections per IP: 195369
+Peak Connection Date: 09/18/2022
+Unique Remote ASNs: 2005
+Minimum Number of Connections: 1

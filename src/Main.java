@@ -50,7 +50,7 @@ public class Main {
                     System.out.println("-----------------------------------------------------------");
                     for (NetworkData data : traffic) {
                         System.out.println(formatColumn(data.getDate(), 15) + formatColumn(String.valueOf(data.getLocalIP()), 10)
-                                + formatColumn(String.valueOf(data.getRemoteASN()), 15) + formatColumn(String.valueOf(data.getNumberOfConnections()), 15));
+                                + formatColumn(String.valueOf(data.getRemoteASN()), 15) + formatColumn(String.valueOf(data.getFlows()), 15));
                     }
                     break;
                 case 4:

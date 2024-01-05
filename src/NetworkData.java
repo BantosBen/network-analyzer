@@ -6,7 +6,7 @@ public class NetworkData {
     private String date; // Date in DD-MM-YYYY format
     private int localIP; // Local IP (integer 0-20)
     private int remoteASN; // Remote Autonomous System Number
-    private int numberOfConnections; // Number of connections
+    private int flows; // Number of connections
 
     /**
      * Constructor to initialize NetworkData object.
@@ -14,13 +14,13 @@ public class NetworkData {
      * @param date the date of the network traffic
      * @param localIP the local IP address
      * @param remoteASN the remote ASN
-     * @param numberOfConnections the number of connections
+     * @param flows the number of connections
      */
-    public NetworkData(String date, int localIP, int remoteASN, int numberOfConnections) {
+    public NetworkData(String date, int localIP, int remoteASN, int flows) {
         this.date = date;
         this.localIP = localIP;
         this.remoteASN = remoteASN;
-        this.numberOfConnections = numberOfConnections;
+        this.flows = flows;
     }
 
     // Getters and setters for each field
@@ -49,12 +49,12 @@ public class NetworkData {
         this.remoteASN = remoteASN;
     }
 
-    public int getNumberOfConnections() {
-        return numberOfConnections;
+    public int getFlows() {
+        return flows;
     }
 
-    public void setNumberOfConnections(int numberOfConnections) {
-        this.numberOfConnections = numberOfConnections;
+    public void setFlows(int flows) {
+        this.flows = flows;
     }
 
     /**
@@ -67,7 +67,7 @@ public class NetworkData {
                 "date='" + date + '\'' +
                 ", localIP=" + localIP +
                 ", remoteASN=" + remoteASN +
-                ", numberOfConnections=" + numberOfConnections +
+                ", flows=" + flows +
                 '}';
     }
 }

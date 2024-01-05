@@ -59,7 +59,7 @@ public class DataAnalyzer {
     }
 
     private int calculateTotalConnections() {
-        return dataList.stream().mapToInt(NetworkData::getNumberOfConnections).sum();
+        return dataList.stream().mapToInt(NetworkData::getFlows).sum();
     }
 
     private int calculateUniqueLocalIPs() {
@@ -72,20 +72,20 @@ public class DataAnalyzer {
 
     private int calculateAverageConnectionsPerIP() {
         return (int) dataList.stream().collect(Collectors.groupingBy(NetworkData::getLocalIP,
-                        Collectors.summingInt(NetworkData::getNumberOfConnections)))
+                        Collectors.summingInt(NetworkData::getFlows)))
                 .values().stream().mapToInt(val -> val).average().orElse(0);
     }
 
     private int calculateMaxConnections() {
-        return dataList.stream().mapToInt(NetworkData::getNumberOfConnections).max().orElse(0);
+        return dataList.stream().mapToInt(NetworkData::getFlows).max().orElse(0);
     }
 
     private int calculateMinConnections() {
-        return dataList.stream().mapToInt(NetworkData::getNumberOfConnections).min().orElse(0);
+        return dataList.stream().mapToInt(NetworkData::getFlows).min().orElse(0);
     }
 
     private int calculateAverageConnections() {
-        return (int) dataList.stream().mapToInt(NetworkData::getNumberOfConnections).average().orElse(0);
+        return (int) dataList.stream().mapToInt(NetworkData::getFlows).average().orElse(0);
     }
 
     private String calculatePeakConnectionDate() {
@@ -93,7 +93,7 @@ public class DataAnalyzer {
 
         for (NetworkData data : dataList) {
             int currentCount = dateConnectionsMap.getOrDefault(data.getDate(), 0);
-            dateConnectionsMap.put(data.getDate(), currentCount + data.getNumberOfConnections());
+            dateConnectionsMap.put(data.getDate(), currentCount + data.getFlows());
         }
 
         return dateConnectionsMap.entrySet()
