@@ -7,7 +7,11 @@ import java.util.stream.Collectors;
  */
 public class DataAnalyzer {
 
-    private final List<NetworkData> dataList;
+    private List<NetworkData> dataList;
+
+    public List<NetworkData> getDataList(){
+        return this.dataList;
+    }
 
     /**
      * Constructor initializing the list.
@@ -21,7 +25,8 @@ public class DataAnalyzer {
      *
      * @param filePath the path to the CSV file
      */
-    public void loadDataFromFile(String filePath) {
+    public boolean loadDataFromFile(String filePath) {
+        this.dataList = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             br.readLine(); // Skip header row if present
@@ -34,8 +39,10 @@ public class DataAnalyzer {
                         Integer.parseInt(values[3])); // numberOfConnections
                 dataList.add(data);
             }
+            return true;
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
+            return false;
         }
     }
 
